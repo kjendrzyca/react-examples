@@ -15,8 +15,8 @@ router.httpGet('/crud', function(request, response) {
     });
 });
 
-router.httpGet('/crud.js', function(request, response) {
-    fs.readFile('crud/crud.js', function(error, data) {
+router.httpGet('/crud.bundle.js', function(request, response) {
+    fs.readFile('crud/crud.bundle.js', function(error, data) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(data);
     });

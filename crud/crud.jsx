@@ -8,11 +8,11 @@ var CrudExample = React.createClass({
     render: function() {
         var cartoonCharactesElements = this.props.cartoonCharacters.map(function(cartoonCharacter) {
             return (
-                <div>
-                    <div>
+                <div className="row">
+                    <div className="col s6">
                         { cartoonCharacter.name }
                     </div>
-                    <div>
+                    <div className="col s6">
                         { cartoonCharacter.description }
                     </div>
                 </div>
@@ -20,9 +20,13 @@ var CrudExample = React.createClass({
         });
 
         return (
-            <div>
-                <div>Crud example</div>
-                <div>
+            <div className="row">
+                <h1>Crud example</h1>
+                <div className="col s12">
+                    <div className="row red darken-1">
+                        <div className="col s6">Name</div>
+                        <div className="col s6">Description</div>
+                    </div>
                     { cartoonCharactesElements }
                 </div>
             </div>

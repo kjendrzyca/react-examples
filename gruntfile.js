@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         browserify: {
             crud: {
                 src: ['./crud/crud.jsx'],
-                dest: './crud/crud.js',
+                dest: './crud/crud.bundle.js',
                 options: {
                     transform: ['reactify'],
                     extensions: ['.jsx']
