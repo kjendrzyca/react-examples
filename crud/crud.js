@@ -3,17 +3,46 @@
 
 var React = require('react');
 var mainContainerDiv = document.getElementById('main-container');
-console.log(mainContainerDiv);
 
 var CrudExample = React.createClass({displayName: "CrudExample",
+
     render: function() {
+        var cartoonCharactesElements = this.props.cartoonCharacters.map(function(cartoonCharacter) {
+            return (
+                React.createElement("div", null, 
+                    React.createElement("div", null, 
+                         cartoonCharacter.name
+                    ), 
+                    React.createElement("div", null, 
+                         cartoonCharacter.description
+                    )
+                )
+            );
+        });
+
         return (
-            React.createElement("div", null, "Crud example")
+            React.createElement("div", null, 
+                React.createElement("div", null, "Crud example"), 
+                React.createElement("div", null, 
+                     cartoonCharactesElements 
+                )
+            )
         );
     }
 });
 
-React.render(React.createElement(CrudExample, null), mainContainerDiv);
+var cartoonCharacters = [
+    {
+        name: 'Batman',
+        description: 'Lost his parents and was afraid of bats but he\'s awesome.`'
+    },
+    {
+        name: 'Spider-man',
+        description: 'Lost (surprise) his parents and he\'s living in NYC.'
+    }
+];
+
+React.render(React.createElement(CrudExample, {cartoonCharacters:  cartoonCharacters }), mainContainerDiv);
 
 },{"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
