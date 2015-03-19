@@ -6,6 +6,17 @@ var Router = require('./router');
 
 var portNumber = 8888;
 
+var cartoonCharacters = [
+    {
+        name: 'Batman',
+        description: 'Lost his parents and was afraid of bats but he\'s awesome.`'
+    },
+    {
+        name: 'Spider-man',
+        description: 'Lost (surprise) his parents and he\'s living in NYC.'
+    }
+];
+
 var router = new Router({ showLog: true });
 
 router.httpGet('/crud', function(request, response) {
@@ -20,6 +31,11 @@ router.httpGet('/crud.bundle.js', function(request, response) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(data);
     });
+});
+
+router.httpGet('/cartoonCharacters', function(request, response) {
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(cartoonCharacters));
 });
 
 http.createServer(function(request, response) {

@@ -10,6 +10,7 @@
     "grunt-mocha-test": "^0.12.4",
     "lodash": "^3.5.0",
     "react": "^0.13.1",
-    "reactify": "^1.1.0"
+    "reactify": "^1.1.0",
+    "superagent": "^1.1.0"
   }
 }
