@@ -19,25 +19,42 @@ var cartoonCharacters = [
     }
 ];
 
+var crudHtml = {};
+var crudBundle = {};
+
+fs.readFile('crud/crud.html', function(error, data) {
+    crudHtml = data;
+});
+fs.readFile('crud/crud.bundle.js', function(error, data) {
+    crudBundle = data;
+});
+
 var router = new Router({ showLog: true });
 
 router.httpGet('/crud', function(request, response) {
-    fs.readFile('crud/crud.html', function(error, data) {
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(data);
-    });
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.end(crudHtml);
+});
+
+router.httpGet('/crud/cartoonCharacters/{id}', function(request, response) {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.end(crudHtml);
 });
 
 router.httpGet('/crud.bundle.js', function(request, response) {
-    fs.readFile('crud/crud.bundle.js', function(error, data) {
-        response.writeHead(200, {'Content-Type': 'text/javascript'});
-        response.end(data);
-    });
+    response.writeHead(200, {'Content-Type': 'text/javascript'});
+    response.end(crudBundle);
 });
 
+// API
 router.httpGet('/cartoonCharacters', function(request, response) {
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.end(JSON.stringify(cartoonCharacters));
+});
+
+router.httpGet('/cartoonCharacters/{id}', function(request, response, params) {
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(cartoonCharacters[params.id - 1]));
 });
 
 http.createServer(function(request, response) {

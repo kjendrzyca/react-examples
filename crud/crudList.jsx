@@ -15,7 +15,7 @@ var CrudList = React.createClass({
                         { cartoonCharacter.description }
                     </div>
                     <div className="col s4">
-                        <a href={ '/crud/cartoonCharacter/' + cartoonCharacter.id.toString() }>Edit</a>
+                        <a href={ '/crud/cartoonCharacters/' + cartoonCharacter.id.toString() }>Edit</a>
                     </div>
                 </div>
             );
