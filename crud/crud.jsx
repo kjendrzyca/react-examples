@@ -2,6 +2,7 @@
 
 var React = require('react');
 var CrudList = require('./crudList.jsx');
+var CrudSingleEntity = require('./crudSingleEntity.jsx');
 var superagent = require('superagent');
 
 var log = function(thingToLog) {
@@ -29,6 +30,6 @@ if (pathLocation.crud) {
 } else if (pathLocation.cartoonCharacter) {
     superagent.get('/cartoonCharacters/' + pathLocation.cartoonCharacterId()).end(function(error, data) {
         // render component here
-        React.render(<h1> { data.body } </h1>, mainContainerDiv);
+        React.render(<CrudSingleEntity cartoonCharacter={ data.body } />, mainContainerDiv);
     });
 }
