@@ -57,6 +57,16 @@ router.httpGet('/cartoonCharacters/{id}', function(request, response, params) {
     response.end(JSON.stringify(cartoonCharacters[params.id - 1]));
 });
 
+router.httpPut('/cartoonCharacters/{id}', function(request, response) {
+    request.on('data', function(chunk) {
+      console.log("Received body data:");
+      console.log(chunk.toString());
+    });
+
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end();
+});
+
 http.createServer(function(request, response) {
     router.route(request, response);
 }).listen(portNumber);

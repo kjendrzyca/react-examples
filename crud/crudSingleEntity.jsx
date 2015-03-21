@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var superagent = require('superagent');
 
 var SingleEntity = React.createClass({
     onFormSubmit: function(event) {
@@ -11,13 +12,23 @@ var SingleEntity = React.createClass({
             description: this.refs.description.getDOMNode().value
         };
 
-        // TODO: post to server
-        console.log(formValues);
+        superagent
+            .put('/cartoonCharacters/' + formValues.id)
+            .send(formValues)
+            .end(function(error, response) {
+                if (response.ok) {
+                    alert('Saved!');
+                    window.location = '/crud';
+                } else {
+                    alert(error);
+                }
+            });
     },
 
     render: function() {
         return (
             <div className="container">
+                <h2>{ this.props.cartoonCharacter.name }</h2>
                 <form onSubmit={ this.onFormSubmit }>
                     <div className="input-field">
                         <label htmlFor="id" className="active">Id</label>
