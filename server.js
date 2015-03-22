@@ -41,6 +41,11 @@ router.httpGet('/crud/cartoonCharacters/{id}', function(request, response) {
     response.end(crudHtml);
 });
 
+router.httpGet('/crud/cartoonCharacters/new', function(request, response) {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.end(crudHtml);
+});
+
 router.httpGet('/crud.bundle.js', function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/javascript'});
     response.end(crudBundle);

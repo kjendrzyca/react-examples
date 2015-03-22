@@ -24,7 +24,7 @@ var CrudList = React.createClass({
         return (
             <div className="row">
                 <h1>Crud example</h1>
-                <a href="crud/cartoonCharacter/add" className="btn btn-large waves-effect waves-light red">Add new</a>
+                <a href="crud/cartoonCharacters/new" className="btn btn-large waves-effect waves-light red">Add new</a>
                 <div className="col s12">
                     <div className="row red darken-1 white-text">
                         <div className="col s4">Name</div>
