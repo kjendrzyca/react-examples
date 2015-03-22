@@ -62,9 +62,19 @@ router.httpGet('/cartoonCharacters/{id}', function(request, response, params) {
     response.end(JSON.stringify(cartoonCharacters[params.id - 1]));
 });
 
-router.httpPut('/cartoonCharacters/{id}', function(request, response) {
+router.httpPut('/cartoonCharacters/{id}', function(request, response, params) {
     request.on('data', function(chunk) {
-      console.log("Received body data:");
+      console.log('Edited entity no. ' + params.id + ':');
+      console.log(chunk.toString());
+    });
+
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end();
+});
+
+router.httpPost('/cartoonCharacters', function(request, response) {
+    request.on('data', function(chunk) {
+      console.log('Added new:');
       console.log(chunk.toString());
     });
 
