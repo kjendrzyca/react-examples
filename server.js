@@ -10,7 +10,7 @@ var cartoonCharacters = [
     {
         id: 1,
         name: 'Batman',
-        description: 'Lost his parents and was afraid of bats but he\'s awesome.`'
+        description: 'Lost his parents and was afraid of bats but he\'s awesome.'
     },
     {
         id: 2,
@@ -78,6 +78,12 @@ router.httpPost('/cartoonCharacters', function(request, response) {
       console.log(chunk.toString());
     });
 
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end();
+});
+
+router.httpDelete('/cartoonCharacters/{id}', function(request, response, params) {
+    console.log('Deleting no. ' + params.id);
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.end();
 });

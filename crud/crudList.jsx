@@ -1,8 +1,21 @@
 'use strict';
 
 var React = require('react');
+var superagent = require('superagent');
 
 var CrudList = React.createClass({
+    _onDelete: function(characterId, event) {
+        superagent
+            .del('/cartoonCharacters/' + characterId.toString())
+            .end(function(error, response) {
+                if (response.ok) {
+                    alert('Deleted!');
+                    window.location = '/crud';
+                } else {
+                    alert(error);
+                }
+            });
+    },
 
     render: function() {
         var cartoonCharactersElements = this.props.cartoonCharacters.map(function(cartoonCharacter) {
@@ -15,11 +28,12 @@ var CrudList = React.createClass({
                         { cartoonCharacter.description }
                     </div>
                     <div className="col s4">
-                        <a href={ '/crud/cartoonCharacters/' + cartoonCharacter.id.toString() }>Edit</a>
+                        <a href={ '/crud/cartoonCharacters/' + cartoonCharacter.id.toString() } className="btn">Edit</a>
+                        <button onClick={ this._onDelete.bind(this, cartoonCharacter.id) } className="btn">Delete</button>
                     </div>
                 </div>
             );
-        });
+        }.bind(this));
 
         return (
             <div className="row">
