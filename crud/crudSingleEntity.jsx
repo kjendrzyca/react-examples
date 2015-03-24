@@ -4,6 +4,17 @@ var React = require('react');
 var superagent = require('superagent');
 
 var SingleEntity = React.createClass({
+    getDefaultProps: function() {
+        return {
+            isEditForm: false,
+            cartoonCharacter: {
+                id: '',
+                name: '',
+                description: ''
+            }
+        };
+    },
+
     _onFormSubmit: function(event) {
         event.preventDefault();
         var formValues = {
@@ -34,26 +45,6 @@ var SingleEntity = React.createClass({
         }
     },
 
-    _entity: {
-
-    },
-
-    componentWillMount: function() {
-        if (this.props.isEditForm) {
-            this._entity = {
-                id: this.props.cartoonCharacter.id,
-                name: this.props.cartoonCharacter.name,
-                description: this.props.cartoonCharacter.description
-            };
-        } else {
-            this._entity = {
-                id: '',
-                name: '',
-                description: ''
-            };
-        }
-    },
-
     render: function() {
         var idStyle = {
 
@@ -71,19 +62,19 @@ var SingleEntity = React.createClass({
 
         return (
             <div className="container">
-                <h2>{ this._entity.name }</h2>
+                <h2>{ this.props.cartoonCharacter.name }</h2>
                 <form onSubmit={ this._onFormSubmit }>
                     <div className="input-field">
                         <label htmlFor="id" className={ labelClass } style={ idStyle } >Id</label>
-                        <input type="text" id="id" style={ idStyle } ref="id" defaultValue={ this._entity.id } readOnly />
+                        <input type="text" id="id" style={ idStyle } ref="id" defaultValue={ this.props.cartoonCharacter.id } readOnly />
                     </div>
                     <div className="input-field">
                         <label htmlFor="name" className={ labelClass }>Name</label>
-                        <input type="text" id="name" ref="name" defaultValue={ this._entity.name } />
+                        <input type="text" id="name" ref="name" defaultValue={ this.props.cartoonCharacter.name } />
                     </div>
                     <div className="input-field">
                         <label htmlFor="description" className={ labelClass }>Description</label>
-                        <input type="text" id="description" ref="description" defaultValue={ this._entity.description } />
+                        <input type="text" id="description" ref="description" defaultValue={ this.props.cartoonCharacter.description } />
                     </div>
                     <button type="submit" className="btn">Submit</button>
                 </form>

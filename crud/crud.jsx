@@ -29,7 +29,7 @@ if (pathLocation.crud) {
     });
 } else if (pathLocation.cartoonCharacterAddNew) {
     superagent.get('/cartoonCharacters/new').end(function(error, data) {
-        React.render(<CrudSingleEntity isEditForm={ false } />, mainContainerDiv);
+        React.render(<CrudSingleEntity />, mainContainerDiv);
     });
 } else if (pathLocation.cartoonCharacterEdit) {
     superagent.get('/cartoonCharacters/' + pathLocation.cartoonCharacterId()).end(function(error, data) {
