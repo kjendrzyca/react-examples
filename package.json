@@ -8,6 +8,7 @@
     "grunt-browserify": "^3.5.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha-test": "^0.12.4",
+    "handleball.js": "git://github.com/TheOneYouDontLike/handleball.js.git",
     "lodash": "^3.5.0",
     "react": "^0.13.1",
     "reactify": "^1.1.0",

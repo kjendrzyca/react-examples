@@ -2,7 +2,7 @@
 
 var http = require('http');
 var fs = require('fs');
-var Router = require('./router');
+var Router = require('handleball.js');
 
 var portNumber = 8888;
 
