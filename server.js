@@ -31,17 +31,9 @@ fs.readFile('crud/crud.bundle.js', function(error, data) {
 
 var router = new Router({ showLog: true });
 
-router.httpGet('/crud', function(request, response) {
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end(crudHtml);
-});
+var paths = ['/crud', '/crud/cartoonCharacters/{id}', '/crud/cartoonCharacters/new'];
 
-router.httpGet('/crud/cartoonCharacters/{id}', function(request, response) {
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end(crudHtml);
-});
-
-router.httpGet('/crud/cartoonCharacters/new', function(request, response) {
+router.httpGet(paths, function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/html'});
     response.end(crudHtml);
 });
