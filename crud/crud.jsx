@@ -1,8 +1,6 @@
 'use strict';
 
 var React = require('react');
-var CrudList = require('./crudList.jsx');
-var CrudSingleEntity = require('./crudSingleEntity.jsx');
 var superagent = require('superagent');
 
 var log = function(thingToLog) {
@@ -25,14 +23,14 @@ var pathLocation = {
 
 if (pathLocation.crud) {
     superagent.get('/cartoonCharacters').end(function(error, data) {
-        React.render(<CrudList cartoonCharacters={ data.body } />, mainContainerDiv);
+        React.render(<div>List</div>, mainContainerDiv);
     });
 } else if (pathLocation.cartoonCharacterAddNew) {
     superagent.get('/cartoonCharacters/new').end(function(error, data) {
-        React.render(<CrudSingleEntity />, mainContainerDiv);
+        React.render(<div>New</div>, mainContainerDiv);
     });
 } else if (pathLocation.cartoonCharacterEdit) {
     superagent.get('/cartoonCharacters/' + pathLocation.cartoonCharacterId()).end(function(error, data) {
-        React.render(<CrudSingleEntity cartoonCharacter={ data.body } isEditForm={ true } />, mainContainerDiv);
+        React.render(<div>Edit</div>, mainContainerDiv);
     });
 }
