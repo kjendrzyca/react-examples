@@ -17,8 +17,30 @@ var CrudList = React.createClass({
             });
     },
 
+    getInitialState: function() {
+        return {
+            searchText: 'batman'
+        };
+    },
+
+    _meetsFilteringCriteria: function(cartoonCharacter) {
+        return (
+            cartoonCharacter.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) > -1 ||
+            cartoonCharacter.description.toLowerCase().indexOf(this.state.searchText.toLowerCase()) > -1
+            );
+    },
+
+    _onSearching: function() {
+        this.setState({ searchText: this.refs.searchBox.getDOMNode().value.trim() });
+    },
+
     render: function() {
+
         var cartoonCharactersElements = this.props.cartoonCharacters.map(function(cartoonCharacter) {
+            if (!this._meetsFilteringCriteria(cartoonCharacter)) {
+                return;
+            }
+
             return (
                 <div key={ cartoonCharacter.name } className="row">
                     <div className="col s4">
@@ -38,6 +60,10 @@ var CrudList = React.createClass({
         return (
             <div className="row">
                 <h1>Crud example</h1>
+                <div>
+                    <label htmlFor="serchBox">Search: </label>
+                    <input type="text" id="searchBox" ref="searchBox" onChange={ this._onSearching } />
+                </div>
                 <a href="crud/cartoonCharacters/new" className="btn btn-large waves-effect waves-light red">Add new</a>
                 <div className="col s12">
                     <div className="row red darken-1 white-text">
