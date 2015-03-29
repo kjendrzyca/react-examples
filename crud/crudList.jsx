@@ -19,7 +19,7 @@ var CrudList = React.createClass({
 
     getInitialState: function() {
         return {
-            searchText: 'batman'
+            searchText: ''
         };
     },
 

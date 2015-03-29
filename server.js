@@ -6,18 +6,7 @@ var Router = require('handleball.js');
 
 var portNumber = 8888;
 
-var cartoonCharacters = [
-    {
-        id: 1,
-        name: 'Batman',
-        description: 'Lost his parents and was afraid of bats but he\'s awesome.'
-    },
-    {
-        id: 2,
-        name: 'Spider-man',
-        description: 'Lost (surprise) his parents and he\'s living in NYC.'
-    }
-];
+var cartoonCharacters = require('./cartoonCharactersData.js');
 
 var crudHtml = {};
 var crudBundle = {};
