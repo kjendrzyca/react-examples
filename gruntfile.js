@@ -19,12 +19,24 @@ module.exports = function(grunt) {
                     transform: ['reactify'],
                     extensions: ['.jsx']
                 }
+            },
+            todo: {
+                src: ['./todo/todo.jsx'],
+                dest: './todo/todo.bundle.js',
+                options: {
+                    transform: ['reactify'],
+                    extensions: ['.jsx']
+                }
             }
         },
         watch: {
             browserify: {
                 files: ['crud/*.jsx'],
                 tasks: ['browserify:crud']
+            },
+            todo: {
+                files: ['todo/*.jsx'],
+                tasks: ['browserify:todo']
             }
         }
     });
