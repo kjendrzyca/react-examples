@@ -3,6 +3,8 @@
 var React = require('react');
 var superagent = require('superagent');
 
+var TodoList = require('./todoList.jsx');
+
 var mainContainerDiv = document.getElementById('main-container');
 
-React.render(<div>todo</div>, mainContainerDiv);
+React.render(<TodoList />, mainContainerDiv);

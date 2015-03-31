@@ -12,6 +12,7 @@ var router = new Router({ showLog: true });
 
 var paths = ['/crud', '/crud/cartoonCharacters/{id}', '/crud/cartoonCharacters/new'];
 
+// CRUD
 router.httpGet(paths, function(request, response) {
     fs.readFile('crud/crud.html', function(error, crudHtml) {
         response.writeHead(200, {'Content-Type': 'text/html'});
@@ -23,6 +24,21 @@ router.httpGet('/crud.bundle.js', function(request, response) {
     fs.readFile('crud/crud.bundle.js', function(error, crudBundle) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(crudBundle);
+    });
+});
+
+// TODO
+router.httpGet('/todo', function(request, response) {
+    fs.readFile('todo/todo.html', function(error, todoHtml) {
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        response.end(todoHtml);
+    });
+});
+
+router.httpGet('/todo.bundle.js', function(request, response) {
+    fs.readFile('todo/todo.bundle.js', function(error, todoBundle) {
+        response.writeHead(200, {'Content-Type': 'text/javascript'});
+        response.end(todoBundle);
     });
 });
 
