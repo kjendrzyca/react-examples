@@ -7,4 +7,6 @@ var TodoList = require('./todoList.jsx');
 
 var mainContainerDiv = document.getElementById('main-container');
 
-React.render(<TodoList />, mainContainerDiv);
+superagent.get('/todos').end(function(error, data) {
+    React.render(<TodoList todos={ data.body }/>, mainContainerDiv);
+});

@@ -4,13 +4,16 @@ var React = require('react');
 
 var TodoList = React.createClass({
     render: function() {
-        var todos = (
-            <div>
-                <div className="row">todo1</div>
-                <div className="row">todo2</div>
-                <div className="row">todo3</div>
-            </div>
-        );
+        var todos = this.props.todos.map(function(element) {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col s6">{ element.id }</div>
+                        <div className="col s6">{ element.title }</div>
+                    </div>
+                </div>
+            );
+        });
 
         return (
             <div>

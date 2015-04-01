@@ -7,6 +7,7 @@ var Router = require('handleball.js');
 var portNumber = 8888;
 
 var cartoonCharacters = require('./cartoonCharactersData.js');
+var todos = require('./todosData.js');
 
 var router = new Router({ showLog: true });
 
@@ -42,7 +43,7 @@ router.httpGet('/todo.bundle.js', function(request, response) {
     });
 });
 
-// API
+// API CRUD
 router.httpGet('/cartoonCharacters', function(request, response) {
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.end(JSON.stringify(cartoonCharacters));
@@ -77,6 +78,12 @@ router.httpDelete('/cartoonCharacters/{id}', function(request, response, params)
     console.log('Deleting no. ' + params.id);
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.end();
+});
+
+// API TODO
+router.httpGet('/todos', function(request, response) {
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(todos));
 });
 
 http.createServer(function(request, response) {
