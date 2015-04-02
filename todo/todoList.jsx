@@ -3,6 +3,17 @@
 var React = require('react');
 
 var TodoList = React.createClass({
+    getInitialState: function() {
+        return {
+            numberOfNewRowsToAdd: 0
+        };
+    },
+
+    addNew: function() {
+        var rowsCounter = this.state.numberOfNewRowsToAdd + 1;
+        this.setState({ numberOfNewRowsToAdd: rowsCounter });
+    },
+
     render: function() {
         var todos = this.props.todos.map(function(element) {
             return (
@@ -14,6 +25,18 @@ var TodoList = React.createClass({
                 </div>
             );
         });
+
+
+        var newRows = [];
+
+        for(var i = 0; i < this.state.numberOfNewRowsToAdd; i++){
+            newRows.push(
+                <div className="row" key={ 'newRow' + i }>
+                    <label htmlFor={ 'newTitle' + i}>New: </label>
+                    <input type="text" id={ 'newTitle' + i}/>
+                </div>
+            );
+        }
 
         return (
             <div>
@@ -27,6 +50,10 @@ var TodoList = React.createClass({
                 </nav>
                 <div>
                     { todos }
+                    <div>
+                        { newRows }
+                        <button type="button" onClick={ this.addNew } className="btn blue">Add</button>
+                    </div>
                 </div>
             </div>
         );

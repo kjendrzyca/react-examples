@@ -6,11 +6,11 @@ var todosData = [
         title: 'clean my room'
     },
     {
-        id: 1,
+        id: 2,
         title: 'buy cinema tickets'
     },
     {
-        id: 1,
+        id: 3,
         title: 'give a five to my boos'
     }
 ];
