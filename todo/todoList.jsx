@@ -11,19 +11,23 @@ var TodoList = React.createClass({
         };
     },
 
-    _addNewRow: function() {
+    _addNewTodoRow: function() {
         var rowsCounter = this.state.numberOfTodosToAdd + 1;
         this.setState({ numberOfTodosToAdd: rowsCounter });
     },
 
-    _saveAllNewItems: function() {
-        this.props.saveNewTodosHandler(this.state.newTodos);
+    _saveAllNewTodos: function() {
+        var newTodosThatAreNotEmpty = this.state.newTodos.filter(function(todoTitle) {
+            return todoTitle.length > 0;
+        });
+
+        this.props.saveNewTodosHandler(newTodosThatAreNotEmpty);
         this.setState({ numberOfTodosToAdd: 0 });
     },
 
-    _rowChangedEventHandler: function(rowId, rowValue) {
+    _newTodoStateChangedHandler: function(todoId, newValue) {
         var todoItemsState = this.state.newTodos;
-        todoItemsState[rowId] = rowValue;
+        todoItemsState[todoId] = newValue;
 
         this.setState({newTodos: todoItemsState });
     },
@@ -40,13 +44,12 @@ var TodoList = React.createClass({
             );
         });
 
-        var saveButton = <button type="button" className="btn orange" onClick={ this._saveAllNewItems }>Save all items</button>;
+        var saveButton = <button type="button" className="btn orange" onClick={ this._saveAllNewTodos }>Save all items</button>;
 
         var newRows = [];
-
         for(var i = 0; i < this.state.numberOfTodosToAdd; i++){
             newRows.push(
-                <TodoNewRow rowId={ i } rowChangedHandler={ this._rowChangedEventHandler } key={ i } />
+                <TodoNewRow rowId={ i } newTodoStateChangedHandler={ this._newTodoStateChangedHandler } key={ i } />
             );
         }
 
@@ -64,7 +67,7 @@ var TodoList = React.createClass({
                     { todos }
                     <div>
                         { newRows }
-                        <button type="button" onClick={ this._addNewRow } className="btn blue">Add</button>
+                        <button type="button" onClick={ this._addNewTodoRow } className="btn blue">Add</button>
                         { this.state.numberOfTodosToAdd ? saveButton : null }
                     </div>
                 </div>
