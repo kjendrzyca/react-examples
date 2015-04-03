@@ -1,17 +1,31 @@
 'use strict';
 
 var React = require('react');
+var TodoNewRow = require('./TodoNewRow.jsx');
 
 var TodoList = React.createClass({
     getInitialState: function() {
         return {
-            numberOfNewRowsToAdd: 0
+            numberOfTodosToAdd: 0,
+            newTodos: []
         };
     },
 
-    addNew: function() {
-        var rowsCounter = this.state.numberOfNewRowsToAdd + 1;
-        this.setState({ numberOfNewRowsToAdd: rowsCounter });
+    _addNewRow: function() {
+        var rowsCounter = this.state.numberOfTodosToAdd + 1;
+        this.setState({ numberOfTodosToAdd: rowsCounter });
+    },
+
+    _saveAllNewItems: function() {
+        this.props.saveNewTodosHandler(this.state.newTodos);
+        this.setState({ numberOfTodosToAdd: 0 });
+    },
+
+    _rowChangedEventHandler: function(rowId, rowValue) {
+        var todoItemsState = this.state.newTodos;
+        todoItemsState[rowId] = rowValue;
+
+        this.setState({newTodos: todoItemsState });
     },
 
     render: function() {
@@ -26,15 +40,13 @@ var TodoList = React.createClass({
             );
         });
 
+        var saveButton = <button type="button" className="btn orange" onClick={ this._saveAllNewItems }>Save all items</button>;
 
         var newRows = [];
 
-        for(var i = 0; i < this.state.numberOfNewRowsToAdd; i++){
+        for(var i = 0; i < this.state.numberOfTodosToAdd; i++){
             newRows.push(
-                <div className="row" key={ 'newRow' + i }>
-                    <label htmlFor={ 'newTitle' + i}>New: </label>
-                    <input type="text" id={ 'newTitle' + i}/>
-                </div>
+                <TodoNewRow rowId={ i } rowChangedHandler={ this._rowChangedEventHandler } key={ i } />
             );
         }
 
@@ -52,7 +64,8 @@ var TodoList = React.createClass({
                     { todos }
                     <div>
                         { newRows }
-                        <button type="button" onClick={ this.addNew } className="btn blue">Add</button>
+                        <button type="button" onClick={ this._addNewRow } className="btn blue">Add</button>
+                        { this.state.numberOfTodosToAdd ? saveButton : null }
                     </div>
                 </div>
             </div>

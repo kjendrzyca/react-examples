@@ -86,6 +86,26 @@ router.httpGet('/todos', function(request, response) {
     response.end(JSON.stringify(todos));
 });
 
+router.httpPost('/todos', function(request, response) {
+    request.on('data', function(chunk) {
+        console.log('Added new:');
+        console.log(chunk.toString());
+
+        var parsedChunk = JSON.parse(chunk);
+
+        var i = 500;
+        parsedChunk.forEach(function(todo) {
+            var newTodo = { id: i++, title: todo };
+            todos.push(newTodo);
+        });
+
+        console.log(todos);
+    });
+
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end();
+});
+
 http.createServer(function(request, response) {
     router.route(request, response);
 }).listen(portNumber);
