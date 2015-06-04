@@ -58,9 +58,6 @@ var TodoList = React.createClass({
                 <nav>
                     <div className="nav-wrapper">
                         <a href="#" className="brand-logo">TodoList</a>
-                        <ul id="nav-mobile" className="right">
-                            <li><a href="#">{ 'Add new' }</a></li>
-                        </ul>
                     </div>
                 </nav>
                 <div>
