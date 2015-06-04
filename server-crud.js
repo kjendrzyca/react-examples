@@ -3,14 +3,9 @@
 var http = require('http');
 var fs = require('fs');
 var Router = require('handleball.js');
-
 var portNumber = 8888;
-
 var cartoonCharacters = require('./cartoonCharactersData.js');
-var todos = require('./todosData.js');
-
 var router = new Router({ showLog: true });
-
 var paths = ['/crud', '/crud/cartoonCharacters/{id}', '/crud/cartoonCharacters/new'];
 
 // CRUD
@@ -25,21 +20,6 @@ router.httpGet('/crud.bundle.js', function(request, response) {
     fs.readFile('crud/crud.bundle.js', function(error, crudBundle) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(crudBundle);
-    });
-});
-
-// TODO
-router.httpGet('/todo', function(request, response) {
-    fs.readFile('todo/todo.html', function(error, todoHtml) {
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(todoHtml);
-    });
-});
-
-router.httpGet('/todo.bundle.js', function(request, response) {
-    fs.readFile('todo/todo.bundle.js', function(error, todoBundle) {
-        response.writeHead(200, {'Content-Type': 'text/javascript'});
-        response.end(todoBundle);
     });
 });
 
@@ -76,32 +56,6 @@ router.httpPost('/cartoonCharacters', function(request, response) {
 
 router.httpDelete('/cartoonCharacters/{id}', function(request, response, params) {
     console.log('Deleting no. ' + params.id);
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.end();
-});
-
-// API TODO
-router.httpGet('/todos', function(request, response) {
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.end(JSON.stringify(todos));
-});
-
-router.httpPost('/todos', function(request, response) {
-    request.on('data', function(chunk) {
-        console.log('Added new:');
-        console.log(chunk.toString());
-
-        var parsedChunk = JSON.parse(chunk);
-
-        var i = 500;
-        parsedChunk.forEach(function(todo) {
-            var newTodo = { id: i++, title: todo };
-            todos.push(newTodo);
-        });
-
-        console.log(todos);
-    });
-
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.end();
 });
