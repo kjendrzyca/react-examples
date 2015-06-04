@@ -3,7 +3,8 @@
 module.exports = {
     entry: {
         todo: ['./todo/todo.jsx'],
-        crud: ['./crud/crud.jsx']
+        crud: ['./crud/crud.jsx'],
+        chat: ['./chat/chat.jsx']
     },
     output: {
         filename: '[name]/[name].bundle.js'

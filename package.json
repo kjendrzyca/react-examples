@@ -19,6 +19,8 @@
     "webpack": "^1.9.10"
   },
   "scripts": {
-    "start": "node --debug ./server.js"
+    "crud": "node --debug ./server-crud.js",
+    "todo": "node --debug ./server-todo.js",
+    "chat": "node --debug ./server-chat.js"
   }
 }
