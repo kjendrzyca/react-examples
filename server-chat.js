@@ -2,6 +2,7 @@
 
 var http       = require('http'),
     fs         = require('fs'),
+    socketIo   = require('socket.io'),
     Router     = require('handleball.js'),
     portNumber = 8888,
     router     = new Router({ showLog: true });
@@ -20,8 +21,17 @@ router.httpGet('/chat.bundle.js', function(request, response) {
     });
 });
 
-http.createServer(function(request, response) {
+var server = http.createServer(function(request, response) {
     router.route(request, response);
 }).listen(portNumber);
+
+var io = socketIo.listen(server);
+
+io.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
 
 console.log('Starting localhost:' + portNumber.toString());
