@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var superagent = require('superagent');
 var io = require('socket.io-client');
+var LoginPage = require('./loginPage');
 
 var mainContainerDiv = document.getElementById('main-container');
 
@@ -13,4 +13,9 @@ socket.on('news', function (data) {
     socket.emit('my other event', { my: 'data' });
 });
 
-React.render(<span>Chat</span>, mainContainerDiv);
+var usernameSubmittedHandler = function(username) {
+    alert(username);
+};
+
+var loginPage = <LoginPage usernameSubmittedHandler={ usernameSubmittedHandler } />;
+React.render(loginPage, mainContainerDiv);
