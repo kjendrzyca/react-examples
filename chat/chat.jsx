@@ -1,21 +1,15 @@
 'use strict';
 
 var React = require('react');
-var io = require('socket.io-client');
-var LoginPage = require('./loginPage');
+var LoginPage = require('./loginPage'),
+    ChatRoom = require('./chatRoom');
 
 var mainContainerDiv = document.getElementById('main-container');
 
-var socket = io.connect();
-
-socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-});
-
-var usernameSubmittedHandler = function(username) {
-    alert(username);
-};
+function usernameSubmittedHandler(username) {
+    var chatRoom = <ChatRoom username={ username }/>;
+    React.render(chatRoom, mainContainerDiv);
+}
 
 var loginPage = <LoginPage usernameSubmittedHandler={ usernameSubmittedHandler } />;
 React.render(loginPage, mainContainerDiv);

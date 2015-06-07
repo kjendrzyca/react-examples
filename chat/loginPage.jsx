@@ -23,7 +23,7 @@ var LoginPage = React.createClass({
             <div className="LoginPage">
                 <div className="row">
                     <div className="col s6 offset-s3 input-field">
-                        <label for="username">Username:</label>
+                        <label htmlFor="username">Username:</label>
                         <input id="username" type="text" ref="username" />
                         <button className="btn success" onClick={ this._submitUsername }>Go</button>
                     </div>
