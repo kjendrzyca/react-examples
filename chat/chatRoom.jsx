@@ -7,6 +7,10 @@ var React = require('react'),
 var ChatRoom = React.createClass({
     _socket: {},
 
+    propTypes: {
+        username: React.PropTypes.string.isRequired
+    },
+
     componentDidMount: function() {
         this._socket = io.connect();
         this._socket.on(ioEvents.MESSAGE, function(message) {
@@ -16,7 +20,7 @@ var ChatRoom = React.createClass({
 
     _inputSubmitted: function($event) {
         if ($event.key === 'Enter') {
-            var message = $event.target.value;
+            var message = this.props.username + ': ' + $event.target.value;
             console.log('sending message: ' + message);
             this._socket.emit(ioEvents.MESSAGE, message);
             $event.target.value = '';
