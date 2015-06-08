@@ -14,12 +14,22 @@ var ChatRoom = React.createClass({
 
     getInitialState: function() {
         return {
-            messages: []
+            messages: [],
+            connectedUsers: []
         };
     },
 
     componentDidMount: function() {
         this._socket = io.connect();
+        this._socket.emit(ioEvents.USERCONNECTED, this.props.username);
+
+        this._socket.on(ioEvents.USERCONNECTED, function(username) {
+            console.log('user connected: ' + username);
+            var connectedUsers = this.state.connectedUsers;
+            connectedUsers.push(username);
+            this.setState({ connectedUsers: connectedUsers });
+        }.bind(this));
+
         this._socket.on(ioEvents.MESSAGE, function(messageFromServer) {
             console.log('message from server: ' + messageFromServer);
 
@@ -47,13 +57,25 @@ var ChatRoom = React.createClass({
         return <ul>{ messages }</ul>;
     },
 
+    _getConnectedUsersList: function() {
+        var connectedUsers = _.map(this.state.connectedUsers, function(username) {
+            return <li key={ username }>{ username }</li>;
+        }, this);
+
+        return <ul>{ connectedUsers }</ul>;
+    },
+
     render: function() {
         return (
             <div className="ChatRoom">
                 <div className="row">
-                    <div className="col s6 offset-s3">
-                        <input type="text" onKeyDown={ this._inputSubmitted } />
+                    <div className="col s6">
+                        <input type="text" placeholder="message..." onKeyDown={ this._inputSubmitted } />
                         { this._getMessagesList() }
+                    </div>
+                    <div className="col s6 offset-s3">
+                        Connected users:
+                        { this._getConnectedUsersList() }
                     </div>
                 </div>
             </div>

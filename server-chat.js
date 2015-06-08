@@ -29,6 +29,11 @@ var server = http.createServer(function(request, response) {
 var io = socketIo.listen(server);
 
 io.on('connection', function (socket) {
+    socket.on(ioEvents.USERCONNECTED, function(username) {
+        console.log('user connected: ' + username);
+        io.emit(ioEvents.USERCONNECTED, username);
+    });
+
     socket.on(ioEvents.MESSAGE, function(message) {
         console.log('recieved message: ' + message);
         io.emit(ioEvents.MESSAGE, message);

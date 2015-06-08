@@ -1,7 +1,8 @@
 'use strict';
 
 var ioEvents = {
-    MESSAGE: 'message'
+    MESSAGE: 'message',
+    USERCONNECTED: 'user connected'
 };
 
 module.exports = ioEvents;
