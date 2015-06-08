@@ -28,10 +28,13 @@ var server = http.createServer(function(request, response) {
 
 var io = socketIo.listen(server);
 
+var connectedUsers = [];
+
 io.on('connection', function (socket) {
     socket.on(ioEvents.USERCONNECTED, function(username) {
         console.log('user connected: ' + username);
-        io.emit(ioEvents.USERCONNECTED, username);
+        connectedUsers.push(username);
+        io.emit(ioEvents.USERS_LIST_UPDATED, connectedUsers);
     });
 
     socket.on(ioEvents.MESSAGE, function(message) {

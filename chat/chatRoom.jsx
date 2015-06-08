@@ -23,11 +23,12 @@ var ChatRoom = React.createClass({
         this._socket = io.connect();
         this._socket.emit(ioEvents.USERCONNECTED, this.props.username);
 
-        this._socket.on(ioEvents.USERCONNECTED, function(username) {
-            console.log('user connected: ' + username);
-            var connectedUsers = this.state.connectedUsers;
-            connectedUsers.push(username);
-            this.setState({ connectedUsers: connectedUsers });
+        this._socket.on(ioEvents.USERS_LIST_UPDATED, function(usersList) {
+            var messages = this.state.messages;
+            messages.push('new user connected');
+            this.setState({ messages: messages });
+
+            this.setState({ connectedUsers: usersList });
         }.bind(this));
 
         this._socket.on(ioEvents.MESSAGE, function(messageFromServer) {
