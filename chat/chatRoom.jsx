@@ -21,7 +21,7 @@ var ChatRoom = React.createClass({
 
     componentDidMount: function() {
         this._socket = io.connect();
-        this._socket.emit(ioEvents.USERCONNECTED, this.props.username);
+        this._socket.emit(ioEvents.USER_CONNECTED, this.props.username);
 
         this._socket.on(ioEvents.USERS_LIST_UPDATED, function(usersList) {
             var messages = this.state.messages;

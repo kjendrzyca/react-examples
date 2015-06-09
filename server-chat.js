@@ -3,6 +3,7 @@
 var http       = require('http'),
     fs         = require('fs'),
     socketIo   = require('socket.io'),
+    _          = require('lodash'),
     Router     = require('handleball.js'),
     portNumber = 8888,
     router     = new Router({ showLog: true }),
@@ -30,11 +31,25 @@ var io = socketIo.listen(server);
 
 var connectedUsers = [];
 
+function _addToConnectedUsersList(socketId, username) {
+    var user = {
+        id: socketId,
+        name: username
+    };
+
+    connectedUsers.push(user);
+}
+
 io.on('connection', function (socket) {
-    socket.on(ioEvents.USERCONNECTED, function(username) {
+    socket.on(ioEvents.USER_CONNECTED, function(username) {
         console.log('user connected: ' + username);
-        connectedUsers.push(username);
-        io.emit(ioEvents.USERS_LIST_UPDATED, connectedUsers);
+
+        _addToConnectedUsersList(socket.id, username);
+
+        var usernames = _.map(connectedUsers, function(user) {
+            return user.name;
+        });
+        io.emit(ioEvents.USERS_LIST_UPDATED, usernames);
     });
 
     socket.on(ioEvents.MESSAGE, function(message) {
