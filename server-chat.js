@@ -29,7 +29,24 @@ var server = http.createServer(function(request, response) {
 
 var io = socketIo.listen(server);
 
-var connectedUsers = [];
+var connectedUsers = {
+    _list: [],
+    add: function(user) {
+        this._list.push(user);
+    },
+    removeById: function(id) {
+        _.remove(this._list, function(user) {
+            return user.id === id;
+        });
+    },
+    getUsernames: function() {
+        var usernames = _.map(this._list, function(user) {
+            return user.name;
+        });
+
+        return usernames;
+    }
+};
 
 function _addToConnectedUsersList(socketId, username) {
     var user = {
@@ -37,19 +54,14 @@ function _addToConnectedUsersList(socketId, username) {
         name: username
     };
 
-    connectedUsers.push(user);
+    connectedUsers.add(user);
 }
 
 io.on('connection', function (socket) {
     socket.on(ioEvents.USER_CONNECTED, function(username) {
         console.log('user connected: ' + username);
-
         _addToConnectedUsersList(socket.id, username);
-
-        var usernames = _.map(connectedUsers, function(user) {
-            return user.name;
-        });
-        io.emit(ioEvents.USERS_LIST_UPDATED, usernames);
+        io.emit(ioEvents.USERS_LIST_UPDATED, connectedUsers.getUsernames());
     });
 
     socket.on(ioEvents.MESSAGE, function(message) {
@@ -59,6 +71,8 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function() {
         console.log('user disconnected');
+        connectedUsers.removeById(socket.id);
+        io.emit(ioEvents.USERS_LIST_UPDATED, connectedUsers.getUsernames());
     });
 });
 
