@@ -3,11 +3,11 @@
 var http       = require('http'),
     fs         = require('fs'),
     socketIo   = require('socket.io'),
-    _          = require('lodash'),
     Router     = require('handleball.js'),
     portNumber = 8888,
     router     = new Router({ showLog: true }),
-    ioEvents   = require('./chat/ioEvents.js');
+    ioEvents   = require('./chat/ioEvents.js'),
+    connectedUsers = require('./chat/connectedUsers.js');
 
 router.httpGet('/chat', function(request, response) {
     fs.readFile('chat/chat.html', function(error, chatHtml) {
@@ -28,25 +28,6 @@ var server = http.createServer(function(request, response) {
 }).listen(portNumber);
 
 var io = socketIo.listen(server);
-
-var connectedUsers = {
-    _list: [],
-    add: function(user) {
-        this._list.push(user);
-    },
-    removeById: function(id) {
-        _.remove(this._list, function(user) {
-            return user.id === id;
-        });
-    },
-    getUsernames: function() {
-        var usernames = _.map(this._list, function(user) {
-            return user.name;
-        });
-
-        return usernames;
-    }
-};
 
 function _addToConnectedUsersList(socketId, username) {
     var user = {
