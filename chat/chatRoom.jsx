@@ -5,6 +5,8 @@ var React = require('react'),
     ioEvents = require('./ioEvents'),
     _ = require('lodash');
 
+require('./chat-room.css');
+
 var ChatRoom = React.createClass({
     _socket: {},
 
@@ -60,6 +62,9 @@ var ChatRoom = React.createClass({
 
     _getConnectedUsersList: function() {
         var connectedUsers = _.map(this.state.connectedUsers, function(username) {
+            if(username === this.props.username) {
+                return <li key={ username } className="highlighted">{ username }</li>;
+            }
             return <li key={ username }>{ username }</li>;
         }, this);
 
