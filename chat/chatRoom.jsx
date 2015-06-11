@@ -10,6 +10,8 @@ require('./chat-room.css');
 var ChatRoom = React.createClass({
     _socket: {},
 
+    _namespacedSocket: {},
+
     propTypes: {
         username: React.PropTypes.string.isRequired
     },
@@ -24,6 +26,11 @@ var ChatRoom = React.createClass({
     componentDidMount: function() {
         this._connectToSocket();
         this._subscribeSocketToEvents();
+
+        this._namespacedSocket = io.connect("http://localhost:8888/namespaced");
+        this._namespacedSocket.on('message', function(message) {
+            console.log(message);
+        });
     },
 
     _connectToSocket: function() {
