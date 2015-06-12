@@ -57,8 +57,4 @@ io.on('connection', function (socket) {
     });
 });
 
-io.of('/namespaced').on('connection', function(socket) {
-    socket.emit('message', 'hello from namespaced');
-});
-
 console.log('Starting localhost:' + portNumber.toString());
