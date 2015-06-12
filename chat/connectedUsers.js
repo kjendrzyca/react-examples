@@ -19,6 +19,9 @@ var connectedUsers = {
         });
 
         return usernames;
+    },
+    getAll: function() {
+        return _usersList;
     }
 };
 

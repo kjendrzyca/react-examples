@@ -88,8 +88,8 @@ var ChatRoom = React.createClass({
                         <input type="text" placeholder="message..." onKeyDown={ this._inputSubmitted } />
                         { this._getMessagesList() }
                     </div>
-                    <div className="col s6 offset-s3">
-                        Connected users:
+                    <div className="col s6">
+                        <p>Connected users:</p>
                         { this._getConnectedUsersList() }
                     </div>
                 </div>
