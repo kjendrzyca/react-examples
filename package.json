@@ -25,6 +25,7 @@
   "scripts": {
     "crud": "node --debug ./server-crud.js",
     "todo": "node --debug ./server-todo.js",
-    "chat": "node --debug ./server-chat.js"
+    "chat": "node --debug ./server-chat.js",
+    "productPage": "node --debug ./server-productPage.js"
   }
 }
