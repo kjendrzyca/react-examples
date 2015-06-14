@@ -1,6 +1,7 @@
 'use strict';
 
 var React     = require('react'),
+    superagent = require('superagent'),
     BasicInfo = require('./basicInfo.component');
 
 var ProductPage = React.createClass({
@@ -27,11 +28,26 @@ var ProductPage = React.createClass({
         console.log(product);
     },
 
+    _saveProduct: function(event) {
+        event.preventDefault();
+
+        //_validateRequiredFields();
+
+        superagent
+            .post('/product')
+            .send(this.state.product)
+            .end(function(error, response) {
+                if (error) { alert(error); return; }
+                alert('saved !');
+            });
+    },
+
     render: function() {
         return (
             <div className="ProductPage container">
                 <form name="productForm">
                     <BasicInfo updateValueHandler={ this._updateValueHandler } />
+                    <button type="button" name="submit" onClick={ this._saveProduct }>Save</button>
                 </form>
             </div>
         );

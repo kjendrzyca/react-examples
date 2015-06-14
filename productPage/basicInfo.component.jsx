@@ -17,13 +17,13 @@ var BasicInfo = React.createClass({
         return (
             <div className="BasicInfo row">
                 <div className="col s6">
-                    <div><input type="text" placeholder="Name" name="name" onBlur={ this._updateValue }/></div>
-                    <div><input type="text" placeholder="Code" name="code" onBlur={ this._updateValue }/></div>
-                    <div><textarea cols="30" rows="10" name="firstAdditionalInfo" onBlur={ this._updateValue }></textarea></div>
+                    <div><input type="text" placeholder="Name" name="name" onChange={ this._updateValue }/></div>
+                    <div><input type="text" placeholder="Code" name="code" onChange={ this._updateValue }/></div>
+                    <div><textarea cols="30" rows="10" name="firstAdditionalInfo" onChange={ this._updateValue }></textarea></div>
                 </div>
                 <div className="col s6">
-                    <div><input type="text" placeholder="Description" name="description" onBlur={ this._updateValue }/></div>
-                    <div><textarea cols="30" rows="10" name="secondAdditionalInfo" onBlur={ this._updateValue }></textarea></div>
+                    <div><input type="text" placeholder="Description" name="description" onChange={ this._updateValue }/></div>
+                    <div><textarea cols="30" rows="10" name="secondAdditionalInfo" onChange={ this._updateValue }></textarea></div>
                 </div>
             </div>
         );
