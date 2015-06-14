@@ -1,8 +1,16 @@
 'use strict';
 
 var React     = require('react'),
-    superagent = require('superagent'),
-    BasicInfo = require('./basicInfo.component');
+    BasicInfo = require('./basicInfo.component'),
+    productApi = require('./productApi');
+
+var _ = require('lodash');
+
+var possibleErrors = {
+    required: function(fieldName) {
+        return { type: 'required', text: fieldName };
+    }
+};
 
 var ProductPage = React.createClass({
     getInitialState: function() {
@@ -13,6 +21,10 @@ var ProductPage = React.createClass({
                 description: '',
                 firstAdditionalInfo: '',
                 secondAdditionalInfo: ''
+            },
+            validationErrors: {
+                name: [],
+                description: []
             }
         };
     },
@@ -31,15 +43,33 @@ var ProductPage = React.createClass({
     _saveProduct: function(event) {
         event.preventDefault();
 
-        //_validateRequiredFields();
+        this._validateProductBeforeSaving();
 
-        superagent
-            .post('/product')
-            .send(this.state.product)
-            .end(function(error, response) {
-                if (error) { alert(error); return; }
-                alert('saved !');
-            });
+        var thereAreErrors = _.some(this.state.validationErrors, function(array) {
+            return array.length > 0;
+        });
+
+        if (thereAreErrors) {
+            console.log('there are errors!');
+        } else {
+            productApi.save(this.state.product);
+        }
+    },
+
+    _validateProductBeforeSaving: function() {
+        if (!this.state.product.name) {
+            this._setRequiredValidationMessageFor('name');
+        }
+        if (!this.state.product.description) {
+            this._setRequiredValidationMessageFor('description');
+        }
+    },
+
+    _setRequiredValidationMessageFor: function(fieldName) {
+        var validationErrors = this.state.validationErrors;
+        validationErrors[fieldName].push(possibleErrors.required(fieldName));
+        this.setState({ validationErrors: validationErrors });
+        console.log(this.state.validationErrors);
     },
 
     render: function() {
