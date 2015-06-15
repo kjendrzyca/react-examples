@@ -17,13 +17,19 @@ var BasicInfo = React.createClass({
         return (
             <div className="BasicInfo row">
                 <div className="col s6">
-                    <div><input type="text" placeholder="Name" name="name" onChange={ this._updateValue }/></div>
-                    <div><input type="text" placeholder="Code" name="code" onChange={ this._updateValue }/></div>
-                    <div><textarea cols="30" rows="10" name="firstAdditionalInfo" onChange={ this._updateValue }></textarea></div>
+                    <div className="input-field"><input type="text" placeholder="Name" name="name" onChange={ this._updateValue }/></div>
+                    <div className="input-field"><input type="text" placeholder="Code" name="code" onChange={ this._updateValue }/></div>
+                    <div className="input-field">
+                        <textarea cols="30" rows="10" className="materialize-textarea" name="firstAdditionalInfo" onChange={ this._updateValue }></textarea>
+                        <label>First additional info:</label>
+                    </div>
                 </div>
                 <div className="col s6">
-                    <div><input type="text" placeholder="Description" name="description" onChange={ this._updateValue }/></div>
-                    <div><textarea cols="30" rows="10" name="secondAdditionalInfo" onChange={ this._updateValue }></textarea></div>
+                    <div className="input-field"><input type="text" placeholder="Description" name="description" onChange={ this._updateValue }/></div>
+                    <div className="input-field">
+                        <textarea cols="30" rows="10" className="materialize-textarea" name="secondAdditionalInfo" onChange={ this._updateValue }></textarea>
+                        <label>Second additional info:</label>
+                    </div>
                 </div>
             </div>
         );
