@@ -2,6 +2,7 @@
 
 var React     = require('react'),
     BasicInfo = require('./basicInfo.component'),
+    PhotosAndColors = require('./photosAndColors.component'),
     productApi = require('./productApi');
 
 var _ = require('lodash');
@@ -77,6 +78,7 @@ var ProductPage = React.createClass({
             <div className="ProductPage container">
                 <form name="productForm">
                     <BasicInfo updateValueHandler={ this._updateValueHandler } />
+                    <PhotosAndColors />
                     <button className="btn btn-primary right" type="button" name="submit" onClick={ this._saveProduct }>Save</button>
                 </form>
             </div>
