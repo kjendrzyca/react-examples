@@ -5,6 +5,10 @@ var React     = require('react'),
     PhotosAndColors = require('./photosAndColors.component'),
     productApi = require('./productApi');
 
+require('../node_modules/materialize-css/bin/materialize.js');
+require('../node_modules/materialize-css/bin/materialize.css');
+
+
 var _ = require('lodash');
 
 var possibleErrors = {
