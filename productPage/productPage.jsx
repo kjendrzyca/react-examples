@@ -25,7 +25,8 @@ var ProductPage = React.createClass({
                 code: '',
                 description: '',
                 firstAdditionalInfo: '',
-                secondAdditionalInfo: ''
+                secondAdditionalInfo: '',
+                selectedImage: {}
             },
             validationErrors: {
                 name: [],
@@ -43,6 +44,17 @@ var ProductPage = React.createClass({
         product[name] = value;
         this.setState({ product: product });
         console.log(product);
+    },
+
+    _imageSelectHandler: function(imageName, imageBuffer) {
+        var selectedImage = {
+            name: imageName,
+            imageBuffer: imageBuffer
+        };
+
+        var product = this.state.product;
+        product.selectedImage = selectedImage;
+        this.setState({ product: product });
     },
 
     _saveProduct: function(event) {
@@ -82,7 +94,7 @@ var ProductPage = React.createClass({
             <div className="ProductPage container">
                 <form name="productForm">
                     <BasicInfo updateValueHandler={ this._updateValueHandler } />
-                    <PhotosAndColors />
+                    <PhotosAndColors imageSelectHandler={ this._imageSelectHandler } />
                     <button className="btn btn-primary right" type="button" name="submit" onClick={ this._saveProduct }>Save</button>
                 </form>
             </div>

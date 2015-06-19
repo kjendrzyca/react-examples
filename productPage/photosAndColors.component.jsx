@@ -8,15 +8,23 @@ var PhotosAndColors = React.createClass({
             selectedFileUrl: ''
         };
     },
+
+    propTypes: {
+        imageSelectHandler: React.PropTypes.func.isRequired
+    },
+
     _fileSelected: function(event) {
-        var file = event.target.files[0];
+        var image = event.target.files[0];
         var reader = new FileReader();
 
         reader.onloadend = function(event)
         {
-            this.setState({ selectedFileUrl: event.target.result });
+            var imageBuffer = event.target.result;
+            this.setState({ selectedFileUrl: imageBuffer });
+            this.props.imageSelectHandler(image.name, imageBuffer);
         }.bind(this);
-        reader.readAsDataURL(file);
+
+        reader.readAsDataURL(image);
     },
 
     render: function() {
