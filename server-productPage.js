@@ -25,10 +25,26 @@ router.httpPost('/product', function(req, res) {
     req.on('data', function(chunk) {
         var newProduct = JSON.parse(chunk.toString());
         console.log(newProduct);
+
+        _saveImage(newProduct.selectedImage);
+
         res.writeHead(200, {'Content-Type': 'text/javascript'});
         res.end();
     });
 });
+
+function _saveImage(selectedImage) {
+    var data_url = selectedImage.imageBuffer;
+    var matches = data_url.match(/^data:.+\/(.+);base64,(.*)$/);
+    var extension = matches[1];
+    var base64_data = matches[2];
+    console.log(base64_data);
+    var buffer = new Buffer(base64_data, 'base64');
+
+    fs.writeFile(__dirname + '/' + selectedImage.name, buffer, function (error) {
+        console.log(error);
+    });
+}
 
 http.createServer(function(req, res) {
     router.route(req, res);

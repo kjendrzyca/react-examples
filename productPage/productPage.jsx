@@ -8,7 +8,6 @@ var React     = require('react'),
 require('../node_modules/materialize-css/bin/materialize.js');
 require('../node_modules/materialize-css/bin/materialize.css');
 
-
 var _ = require('lodash');
 
 var possibleErrors = {
@@ -30,7 +29,8 @@ var ProductPage = React.createClass({
             },
             validationErrors: {
                 name: [],
-                description: []
+                description: [],
+                selectedImage: []
             }
         };
     },
@@ -80,13 +80,29 @@ var ProductPage = React.createClass({
         if (!this.state.product.description) {
             this._setRequiredValidationMessageFor('description');
         }
+        if (!this.state.product.selectedImage) {
+            this._setRequiredValidationMessageFor('selectedImage');
+        }
     },
 
     _setRequiredValidationMessageFor: function(fieldName) {
         var validationErrors = this.state.validationErrors;
         validationErrors[fieldName].push(possibleErrors.required(fieldName));
         this.setState({ validationErrors: validationErrors });
-        console.log(this.state.validationErrors);
+    },
+
+    _getValidationErrors: function() {
+        var errors = _.map(this.state.validationErrors, function(validationError) {
+            var errorValues = _.values(validationError);
+            var concatenatedErrors = _.reduce(errorValues, function(result, nextError) {
+                result = result+ nextError.type + ' ' + nextError.text + ', ';
+                return result;
+            }, '');
+
+            return <span>{ concatenatedErrors }</span>;
+        });
+
+        return errors;
     },
 
     render: function() {
@@ -97,6 +113,9 @@ var ProductPage = React.createClass({
                     <PhotosAndColors imageSelectHandler={ this._imageSelectHandler } />
                     <button className="btn btn-primary right" type="button" name="submit" onClick={ this._saveProduct }>Save</button>
                 </form>
+                <div className="row">
+                    { this._getValidationErrors() }
+                </div>
             </div>
         );
     }
