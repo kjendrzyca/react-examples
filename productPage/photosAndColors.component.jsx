@@ -1,6 +1,9 @@
 'use strict';
 
-var React = require('react');
+/* global $ */
+
+var React = require('react'),
+ColorsModal = require('./colorsModal.component');
 
 var PhotosAndColors = React.createClass({
     getInitialState: function() {
@@ -27,6 +30,14 @@ var PhotosAndColors = React.createClass({
         reader.readAsDataURL(image);
     },
 
+    _openColorsModal: function() {
+        $('#modal1').openModal();
+    },
+
+    _closeColorsModalHandler: function() {
+        $('#modal1').closeModal();
+    },
+
     render: function() {
         var thumbnail;
         if (this.state.selectedFileUrl) {
@@ -45,8 +56,10 @@ var PhotosAndColors = React.createClass({
                 </div>
                 { thumbnail }
                 <div className="colors-container">
-                    //placeholder for colors
+                    <button className="btn" type="button" onClick={ this._openColorsModal }>Manage colors</button>
                 </div>
+
+                <ColorsModal closeColorsModalHandler={ this._closeColorsModalHandler }/>
             </div>
         );
     }
