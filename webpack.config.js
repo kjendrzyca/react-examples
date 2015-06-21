@@ -1,5 +1,7 @@
 'use strict';
 
+var webpack = require('webpack');
+
 module.exports = {
     entry: {
         todo: ['./todo/todo.jsx'],
@@ -19,5 +21,13 @@ module.exports = {
     resolve: {
         // you can now require('file') instead of require('file.coffee')
         extensions: ['', '.js', '.jsx', '.json', '.coffee']
-    }
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            "root.jQuery": "jquery"
+        })
+    ]
 };
