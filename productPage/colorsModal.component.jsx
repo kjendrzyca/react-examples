@@ -7,7 +7,8 @@ var React = require('react'),
 
 var ColorsModal = React.createClass({
     propTypes: {
-        closeColorsModalHandler: React.PropTypes.func.isRequired
+        closeColorsModalHandler: React.PropTypes.func.isRequired,
+        updateSelectedColorsHandler: React.PropTypes.func.isRequired
     },
 
     getInitialState: function() {
@@ -23,6 +24,10 @@ var ColorsModal = React.createClass({
     },
 
     componentDidMount: function() {
+        $('select').material_select();
+    },
+
+    componentDidUpdate: function() {
         $('select').material_select();
     },
 
@@ -53,6 +58,9 @@ var ColorsModal = React.createClass({
         if (!this._colorAlreadyDefined(selectedColors, selectedColor.id)) {
             selectedColors.push(selectedColor);
             this.setState({ selectedColors: selectedColors });
+
+            this._updateAvailableColorsList(selectedColor.id);
+            this.props.updateSelectedColorsHandler(selectedColors);
         }
     },
 
@@ -62,9 +70,19 @@ var ColorsModal = React.createClass({
         });
     },
 
+    _updateAvailableColorsList: function(selectedColorId) {
+        var availableColors = this.state.colors;
+        _.remove(availableColors, function(color) {
+            return color.id === selectedColorId;
+        });
+
+        this.setState({ colors: availableColors });
+    },
+
     _getSelectedColors: function() {
+        var selectedColorStyle = { padding: 10 };
         var selectedColors = _.map(this.state.selectedColors, function(color) {
-            return <span>{ color.name }</span>;
+            return <span key={ color.id } className="selectedColorOnList" style={ selectedColorStyle }>{ color.name }</span>;
         });
 
         return selectedColors;

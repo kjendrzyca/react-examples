@@ -13,7 +13,8 @@ var PhotosAndColors = React.createClass({
     },
 
     propTypes: {
-        imageSelectHandler: React.PropTypes.func.isRequired
+        imageSelectHandler: React.PropTypes.func.isRequired,
+        updateSelectedColorsHandler: React.PropTypes.func.isRequired
     },
 
     _fileSelected: function(event) {
@@ -59,7 +60,7 @@ var PhotosAndColors = React.createClass({
                     <button className="btn" type="button" onClick={ this._openColorsModal }>Manage colors</button>
                 </div>
 
-                <ColorsModal closeColorsModalHandler={ this._closeColorsModalHandler }/>
+                <ColorsModal closeColorsModalHandler={ this._closeColorsModalHandler } updateSelectedColorsHandler={ this.props.updateSelectedColorsHandler }/>
             </div>
         );
     }
