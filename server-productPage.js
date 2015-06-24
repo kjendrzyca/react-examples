@@ -22,10 +22,13 @@ router.httpGet('/productPage.bundle.js', function(req, res) {
 
 // API
 router.httpPost('/product', function(req, res) {
+    var data = '';
     req.on('data', function(chunk) {
-        var newProduct = JSON.parse(chunk.toString());
-        console.log(newProduct);
+        data += chunk;
+    });
 
+    req.on('end', function() {
+        var newProduct = JSON.parse(data);
         _saveImage(newProduct.selectedImage);
 
         res.writeHead(200, {'Content-Type': 'text/javascript'});
@@ -38,10 +41,9 @@ function _saveImage(selectedImage) {
     var matches = data_url.match(/^data:.+\/(.+);base64,(.*)$/);
     var extension = matches[1];
     var base64_data = matches[2];
-    console.log(base64_data);
     var buffer = new Buffer(base64_data, 'base64');
 
-    fs.writeFile(__dirname + '/' + selectedImage.name, buffer, function (error) {
+    fs.writeFile(__dirname + '/_upload/' + selectedImage.name, buffer, function (error) {
         console.log(error);
     });
 }

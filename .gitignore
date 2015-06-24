@@ -33,3 +33,6 @@ node_modules
 
 #bundle files
 *.bundle.js
+
+#upload folder
+_upload
