@@ -9,7 +9,6 @@ var BasicInfo = React.createClass({
     _updateValue: function(event) {
         var name = event.target.name;
         var value = event.target.value;
-        console.log(name, value);
         this.props.updateValueHandler(name, value);
     },
 

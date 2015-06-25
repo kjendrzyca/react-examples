@@ -37,14 +37,20 @@ var ProductPage = React.createClass({
     },
 
     _updateValueHandler: function(name, value) {
-        if (!this.state.product.hasOwnProperty(name)) {
+        if (!this._productFieldIsValid(name)) {
             return;
         }
 
-        var product = this.state.product;
-        product[name] = value;
-        this.setState({ product: product });
-        console.log(product);
+        this._setProductState(function(product) {
+            product[name] = value;
+            return { product: product };
+        });
+
+        console.log(this.state.product);
+    },
+
+    _productFieldIsValid: function(name) {
+        return this.state.product.hasOwnProperty(name) && name !== 'selectedImage' && name !== 'selectedColorsIds';
     },
 
     _imageSelectHandler: function(imageName, imageBuffer) {
@@ -53,9 +59,10 @@ var ProductPage = React.createClass({
             imageBuffer: imageBuffer
         };
 
-        var product = this.state.product;
-        product.selectedImage = selectedImage;
-        this.setState({ product: product });
+        this._setProductState(function(product) {
+            product.selectedImage = selectedImage;
+            return { product: product };
+        });
     },
 
     _updateSelectedColorsHandler: function(selectedColors) {
@@ -63,9 +70,15 @@ var ProductPage = React.createClass({
             return color.id;
         });
 
+        this._setProductState(function(product) {
+            product.selectedColorsIds = colorsIds;
+            this.setState({ product: product });
+        }.bind(this));
+    },
+
+    _setProductState: function(updateFn) {
         var product = this.state.product;
-        product.selectedColorsIds = colorsIds;
-        this.setState({ product: product });
+        updateFn(product);
     },
 
     _saveProduct: function(event) {

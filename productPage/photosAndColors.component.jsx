@@ -25,6 +25,7 @@ var PhotosAndColors = React.createClass({
         {
             var imageBuffer = event.target.result;
             this.setState({ selectedFileUrl: imageBuffer });
+
             this.props.imageSelectHandler(image.name, imageBuffer);
         }.bind(this);
 
