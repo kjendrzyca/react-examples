@@ -25,7 +25,7 @@ var ProductPage = React.createClass({
                 description: '',
                 firstAdditionalInfo: '',
                 secondAdditionalInfo: '',
-                selectedImage: {},
+                selectedImage: null,
                 selectedColorsIds: []
             },
             validationErrors: {
@@ -84,9 +84,9 @@ var ProductPage = React.createClass({
     _saveProduct: function(event) {
         event.preventDefault();
 
-        this._validateProductBeforeSaving();
+        var validationErrors = this._validateProductBeforeSaving();
 
-        var thereAreErrors = _.some(this.state.validationErrors, function(array) {
+        var thereAreErrors = _.some(validationErrors, function(array) {
             return array.length > 0;
         });
 
@@ -98,21 +98,29 @@ var ProductPage = React.createClass({
     },
 
     _validateProductBeforeSaving: function() {
+        var validationErrors = {
+            name: [],
+            description: [],
+            selectedImage: []
+        };
+
         if (!this.state.product.name) {
-            this._setRequiredValidationMessageFor('name');
+            this._setRequiredValidationMessageFor('name', validationErrors);
         }
         if (!this.state.product.description) {
-            this._setRequiredValidationMessageFor('description');
+            this._setRequiredValidationMessageFor('description', validationErrors);
         }
         if (!this.state.product.selectedImage) {
-            this._setRequiredValidationMessageFor('selectedImage');
+            this._setRequiredValidationMessageFor('selectedImage', validationErrors);
         }
+
+        this.setState({ validationErrors: validationErrors });
+
+        return validationErrors;
     },
 
-    _setRequiredValidationMessageFor: function(fieldName) {
-        var validationErrors = this.state.validationErrors;
+    _setRequiredValidationMessageFor: function(fieldName, validationErrors) {
         validationErrors[fieldName].push(possibleErrors.required(fieldName));
-        this.setState({ validationErrors: validationErrors });
     },
 
     _getValidationErrors: function() {
