@@ -7,7 +7,7 @@ module.exports = {
         todo: ['./todo/todo.jsx'],
         crud: ['./crud/crud.jsx'],
         chat: ['./chat/chat.jsx'],
-        productPage: ['./productPage/productPage.jsx']
+        pageJsRouting: ['./pageJsRouting/pageJsRouting.jsx']
     },
     output: {
         filename: '[name]/[name].bundle.js'

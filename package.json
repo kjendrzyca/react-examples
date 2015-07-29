@@ -31,6 +31,7 @@
   "dependencies": {
     "hammerjs": "^2.0.4",
     "jquery": "^2.1.4",
-    "materialize-css": "^0.96.1"
+    "materialize-css": "^0.96.1",
+    "page": "^1.6.3"
   }
 }
