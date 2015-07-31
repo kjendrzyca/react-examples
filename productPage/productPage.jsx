@@ -15,7 +15,6 @@ var possibleErrors = {
         return { type: 'required', text: fieldName };
     }
 };
-
 var ProductPage = React.createClass({
     getInitialState: function() {
         return {
