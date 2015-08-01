@@ -62,11 +62,15 @@ function renderAbout() {
 }
 
 function editSomething(context) {
-    console.log(context.params);
     React.render(<Edit id={ context.params.id } />, mainContainerDiv);
+}
+
+function loading(context, next) {
+    React.render(<div>Loading...</div>, mainContainerDiv);
+    setTimeout(next, 3000);
 }
 
 page('/pageJsRouting', renderHome);
 page('/pageJsRouting/about', renderAbout);
-page('/pageJsRouting/edit/:id', editSomething);
+page('/pageJsRouting/edit/:id', loading, editSomething);
 page();
