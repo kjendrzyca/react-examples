@@ -2,8 +2,9 @@
 
 /* global $ */
 
-var React = require('react'),
-    _     = require('lodash');
+var React        = require('react'),
+    _            = require('lodash'),
+    colorsHelper = require('./colorsHelper');
 
 var ColorsModal = React.createClass({
     propTypes: {
@@ -79,15 +80,6 @@ var ColorsModal = React.createClass({
         this.setState({ colors: availableColors });
     },
 
-    _getSelectedColors: function() {
-        var selectedColorStyle = { padding: 10 };
-        var selectedColors = _.map(this.state.selectedColors, function(color) {
-            return <span key={ color.id } className="selectedColorOnList" style={ selectedColorStyle }>{ color.name }</span>;
-        });
-
-        return selectedColors;
-    },
-
     render: function() {
         return (
             <div className="ColorsModal">
@@ -109,7 +101,7 @@ var ColorsModal = React.createClass({
                             </div>
                             <div className="row">
                                 <div className="selectedColorsContainer">
-                                    { this._getSelectedColors() }
+                                    { colorsHelper.mapToHtml(this.state.selectedColors) }
                                 </div>
                             </div>
                         </div>

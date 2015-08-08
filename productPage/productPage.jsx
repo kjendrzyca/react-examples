@@ -7,6 +7,7 @@ var React     = require('react'),
 
 require('../node_modules/materialize-css/bin/materialize.js');
 require('../node_modules/materialize-css/bin/materialize.css');
+require('./product-page.css');
 
 var _ = require('lodash');
 

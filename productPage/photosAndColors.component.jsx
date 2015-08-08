@@ -2,13 +2,16 @@
 
 /* global $ */
 
-var React = require('react'),
-ColorsModal = require('./colorsModal.component');
+var React        = require('react'),
+    _            = require('lodash'),
+    colorsHelper = require('./colorsHelper'),
+    ColorsModal  = require('./colorsModal.component');
 
 var PhotosAndColors = React.createClass({
     getInitialState: function() {
         return {
-            selectedFileUrl: ''
+            selectedFileUrl: '',
+            selectedColors: []
         };
     },
 
@@ -40,6 +43,14 @@ var PhotosAndColors = React.createClass({
         $('#modal1').closeModal();
     },
 
+    _updateSelectedColorsHandler: function(selectedColors) {
+        this.setState(function() {
+            return { selectedColors: selectedColors };
+        }, function() {
+            this.props.updateSelectedColorsHandler(selectedColors);
+        });
+    },
+
     render: function() {
         var thumbnail;
         if (this.state.selectedFileUrl) {
@@ -60,8 +71,12 @@ var PhotosAndColors = React.createClass({
                 <div className="colors-container">
                     <button className="btn" type="button" onClick={ this._openColorsModal }>Manage colors</button>
                 </div>
+                <div>
+                    <p>Selected colors: </p>
+                    { colorsHelper.mapToHtml(this.state.selectedColors) }
+                </div>
 
-                <ColorsModal closeColorsModalHandler={ this._closeColorsModalHandler } updateSelectedColorsHandler={ this.props.updateSelectedColorsHandler }/>
+                <ColorsModal closeColorsModalHandler={ this._closeColorsModalHandler } updateSelectedColorsHandler={ this._updateSelectedColorsHandler }/>
             </div>
         );
     }
