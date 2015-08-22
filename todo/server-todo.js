@@ -9,14 +9,14 @@ var router = new Router({ showLog: true });
 
 // TODO
 router.httpGet('/todo', function(request, response) {
-    fs.readFile('todo/todo.html', function(error, todoHtml) {
+    fs.readFile(__dirname + '/todo.html', function(error, todoHtml) {
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end(todoHtml);
     });
 });
 
 router.httpGet('/todo.bundle.js', function(request, response) {
-    fs.readFile('todo/todo.bundle.js', function(error, todoBundle) {
+    fs.readFile(__dirname + '/todo.bundle.js', function(error, todoBundle) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(todoBundle);
     });

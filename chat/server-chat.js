@@ -6,19 +6,19 @@ var http           = require('http'),
     Router         = require('handleball.js'),
     portNumber     = 8888,
     router         = new Router({ showLog: true }),
-    ioEvents       = require('./chat/ioEvents.js'),
-    connectedUsers = require('./chat/connectedUsers.js'),
+    ioEvents       = require('./ioEvents.js'),
+    connectedUsers = require('./connectedUsers.js'),
     _              = require('lodash');
 
 router.httpGet('/chat', function(request, response) {
-    fs.readFile('chat/chat.html', function(error, chatHtml) {
+    fs.readFile(__dirname + '/chat.html', function(error, chatHtml) {
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end(chatHtml);
     });
 });
 
 router.httpGet('/chat.bundle.js', function(request, response) {
-    fs.readFile('chat/chat.bundle.js', function(error, chatBundle) {
+    fs.readFile(__dirname + '/chat.bundle.js', function(error, chatBundle) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(chatBundle);
     });

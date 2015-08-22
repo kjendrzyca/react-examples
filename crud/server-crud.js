@@ -10,14 +10,14 @@ var paths = ['/crud', '/crud/cartoonCharacters/{id}', '/crud/cartoonCharacters/n
 
 // CRUD
 router.httpGet(paths, function(request, response) {
-    fs.readFile('crud/crud.html', function(error, crudHtml) {
+    fs.readFile(__dirname + '/crud.html', function(error, crudHtml) {
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end(crudHtml);
     });
 });
 
 router.httpGet('/crud.bundle.js', function(request, response) {
-    fs.readFile('crud/crud.bundle.js', function(error, crudBundle) {
+    fs.readFile(__dirname + '/crud.bundle.js', function(error, crudBundle) {
         response.writeHead(200, {'Content-Type': 'text/javascript'});
         response.end(crudBundle);
     });

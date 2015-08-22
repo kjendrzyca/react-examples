@@ -23,10 +23,11 @@
     "webpack": "^1.9.10"
   },
   "scripts": {
-    "crud": "node --debug ./server-crud.js",
-    "todo": "node --debug ./server-todo.js",
-    "chat": "node --debug ./server-chat.js",
-    "productPage": "node --debug ./server-productPage.js"
+    "crud": "node --debug ./crud/server-crud.js",
+    "todo": "node --debug ./todo/server-todo.js",
+    "chat": "node --debug ./chat/server-chat.js",
+    "productPage": "node --debug ./productPage/server-productPage.js",
+    "pageJsRouting": "node --debug ./pageJsRouting/server-pageJsRouting.js"
   },
   "dependencies": {
     "hammerjs": "^2.0.4",
