@@ -7,5 +7,5 @@ Real life examples with React.
 e.g.:
 ``` npm run todo ```
 
-# Compilation of components
+# Building
 Just use ``` webpack ```
