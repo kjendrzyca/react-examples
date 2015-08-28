@@ -42,3 +42,4 @@ bin/
 *user
 *xproj
 .vs/
+*.lock.json
