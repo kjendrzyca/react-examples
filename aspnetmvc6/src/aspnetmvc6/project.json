@@ -1,23 +1,22 @@
 ﻿{
-    "webroot": "wwwroot",
-    "version": "1.0.0-*",
-
+    "commands": {
+        "web": "Microsoft.AspNet.Hosting --config hosting.ini"
+    },
     "dependencies": {
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
         "Microsoft.AspNet.Mvc": "6.0.0-beta5",
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta5"
     },
-
-    "commands": {
-        "web": "Microsoft.AspNet.Hosting --config hosting.ini"
-    },
-
+    "exclude": [
+        "wwwroot",
+        "node_modules",
+        "bower_components"
+    ],
     "frameworks": {
         "dnx451": { },
         "dnxcore50": { }
     },
-
     "publishExclude": [
         "node_modules",
         "bower_components",
@@ -25,9 +24,7 @@
         "**.user",
         "**.vspscc"
     ],
-    "exclude": [
-        "wwwroot",
-        "node_modules",
-        "bower_components"
-    ]
+    "userSecretsId": "aspnet5-aspnetmvc6-20150829063129",
+    "version": "1.0.0-*",
+    "webroot": "wwwroot"
 }

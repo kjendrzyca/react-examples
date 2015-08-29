@@ -6,10 +6,9 @@ using Microsoft.AspNet.Mvc;
 
 namespace aspnetmvc6.Controllers
 {
-    [Route("index")]
+    [Route("")]
     public class IndexController : Controller
     {
-        // GET: /<controller>/
         public IActionResult Index()
         {
             return View();
