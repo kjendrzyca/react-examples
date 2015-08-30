@@ -43,4 +43,4 @@ bin/
 *xproj
 .vs/
 *.lock.json
-wwwroot/bundle.js
+wwwroot/

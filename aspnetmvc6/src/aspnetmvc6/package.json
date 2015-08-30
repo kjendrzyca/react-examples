@@ -11,5 +11,8 @@
         "webpack": "^1.9.10",
         "gulp": "3.9.0",
         "gulp-util": "3.0.6"
+    },
+    "scripts": {
+        "start": "nodemon --ext \"cs,json\" --exec \"dnx . web\""
     }
 }

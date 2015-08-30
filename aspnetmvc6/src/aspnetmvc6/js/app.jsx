@@ -18,7 +18,7 @@ var Home = React.createClass({
         return (
             <div className="Home">
                 <Menu />
-                <div>Hello everyone!</div>
+                <div>Hello everyone! something new here</div>
             </div>
         );
     }
