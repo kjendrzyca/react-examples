@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-var React = require('react');
+let React = require('react');
 
-var Menu = React.createClass({
-    render: function() {
+let Menu = React.createClass({
+    render () {
         return (
             <ul className="Menu">
                 <li><a href="./">Home</a></li>
@@ -13,8 +13,8 @@ var Menu = React.createClass({
     }
 });
 
-var Home = React.createClass({
-    render: function() {
+let Home = React.createClass({
+    render () {
         return (
             <div className="Home">
                 <Menu />
@@ -24,8 +24,8 @@ var Home = React.createClass({
     }
 });
 
-var About = React.createClass({
-    render: function() {
+let About = React.createClass({
+    render () {
         return (
             <div className="About">
                 <Menu />
@@ -35,15 +35,15 @@ var About = React.createClass({
     }
 });
 
-var Edit = React.createClass({
-    render: function() {
+let Edit = React.createClass({
+    render () {
         return (
             <div className="Edit">
-                Editing something of id: { this.props.id }
+                Editing something of id: {this.props.id}
             </div>
         );
     }
 });
 
-var mainContainerDiv = document.getElementById('main-container');
+let mainContainerDiv = document.getElementById('main-container');
 React.render(<Home />, mainContainerDiv);
