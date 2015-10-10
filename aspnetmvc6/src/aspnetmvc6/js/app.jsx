@@ -1,5 +1,3 @@
-﻿'use strict';
-
 let React = require('react');
 
 let Menu = React.createClass({

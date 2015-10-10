@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react'),
-    page  = require('page');
+const React = require('react'),
+      page  = require('page');
 
 require('../node_modules/materialize-css/bin/materialize.js');
 require('../node_modules/materialize-css/bin/materialize.css');
 
-var Menu = React.createClass({
-    render: function() {
+const Menu = React.createClass({
+    render () {
         return (
             <ul className="Menu">
                 <li><a href="./">Home</a></li>
@@ -19,8 +19,8 @@ var Menu = React.createClass({
     }
 });
 
-var Home = React.createClass({
-    render: function() {
+const Home = React.createClass({
+    render () {
         return (
             <div className="Home">
                 <Menu />
@@ -30,8 +30,8 @@ var Home = React.createClass({
     }
 });
 
-var About = React.createClass({
-    render: function() {
+const About = React.createClass({
+    render () {
         return (
             <div className="About">
                 <Menu />
@@ -41,36 +41,29 @@ var About = React.createClass({
     }
 });
 
-var Edit = React.createClass({
-    render: function() {
+const Edit = React.createClass({
+    render () {
         return (
             <div className="Edit">
-                Editing something of id: { this.props.id }
+                Editing something of id: {this.props.id}
             </div>
         );
     }
 });
 
-var mainContainerDiv = document.getElementById('main-container');
+const mainContainerDiv = document.getElementById('main-container');
 
-function renderHome() {
-    React.render(<Home />, mainContainerDiv);
-}
+const routes = {
+    home: () => React.render(<Home />, mainContainerDiv),
+    about: () => React.render(<About />, mainContainerDiv),
+    edit: (context) => React.render(<Edit id={context.params.id} />, mainContainerDiv),
+    loading: (context, next) => {
+        React.render(<div>Loading...</div>, mainContainerDiv);
+        setTimeout(next, 3000);
+    }
+};
 
-function renderAbout() {
-    React.render(<About />, mainContainerDiv);
-}
-
-function editSomething(context) {
-    React.render(<Edit id={ context.params.id } />, mainContainerDiv);
-}
-
-function loading(context, next) {
-    React.render(<div>Loading...</div>, mainContainerDiv);
-    setTimeout(next, 3000);
-}
-
-page('/pageJsRouting', renderHome);
-page('/pageJsRouting/about', renderAbout);
-page('/pageJsRouting/edit/:id', loading, editSomething);
+page('/pageJsRouting', routes.home);
+page('/pageJsRouting/about', routes.about);
+page('/pageJsRouting/edit/:id', routes.loading, routes.edit);
 page();
