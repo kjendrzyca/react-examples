@@ -3,14 +3,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // mochaTest: {
-        //     test: {
-        //         options: {
-        //             reporter: 'spec'
-        //         },
-        //         src: ['./tests/*.spec.js']
-        //     }
-        // },
         browserify: {
             crud: {
                 src: ['./crud/crud.jsx'],
